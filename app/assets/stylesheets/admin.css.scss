@@ -1,9 +1,14 @@
 /*
-	*= require font-awesome
-	*= require_self
+ *= require font-awesome
+ *= require_self
 */
 
 @import "bootstrap";
+
 body {
   padding-top: 50px;
+}
+
+h2 {
+  text-align: center;
 }
