@@ -5,7 +5,7 @@ Giggle::Application.routes.draw do
 
 
   resources :admins
-  resources :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy]
   match '/signup', to: 'admins#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
