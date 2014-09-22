@@ -1,51 +1,49 @@
 class Admin::ProductsController < ApplicationController
+  layout "admin"
 
-	layout "admin"
-	
-	def index
+  def index
+    @products=Product.all
+  end
 
-		@products = Product.all
-	end
+  def show
+    @product=Product.find(params[:id])
+  end
 
-	def show
-		@product = Product.find(params[:id])
-	end
+  def new
+    @product=Product.new
+  end
 
-	def new
-		@product = Product.new
-	end
+  def create
+    @product=Product.new(product_params)
+    if @product.save
+      redirect_to admin_products_path
+    else
+      render 'new'
+    end
+  end
 
-	def create
-		@product = Product.new(product_params)
-		if @product.save
-		else
-			render 'new'
-		end
-	end
+  def edit
+    @product=Product.find(params[:id])
+  end
 
-	def edit
-		@product = Product.find(params[:id])
+  def update
+    @product=Product.find(params[:id])
 
-	end
+    if @product.update(product_params)
+      redirect_to admin_products_path
+    else
+      render 'edit'
+    end
+  end
 
-	def update
+  def destroy
+    Product.find(params[:id]).destroy
+    redirect_to admin_products_path
+  end
 
-		if @product.update_attributes(product_params)
-		else
-			render 'edit'
-		end
-	end
+  private
 
-
-	def destroy
-		Product.find(params[:id]).destroy
-	end
-
-	private
-
-	def product_params
-		params.require(:product).permit(:name,:description,:detail,:price)
-	end
-
-
+  def product_params
+    params.require(:product).permit(:name,:description,:detail,:price)
+  end
 end
